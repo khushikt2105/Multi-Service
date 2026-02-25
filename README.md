@@ -27,6 +27,6 @@ Flask
 Docker Compose
 Requests
 
-Docker
+
 
 Docker Compose
