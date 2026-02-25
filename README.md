@@ -22,7 +22,11 @@ Is routed through API Gateway
 🛠️ Tech Stack
 
 Python 3
-Flask
-Requests
 Docker
+Flask
+Docker Compose
+Requests
+
+Docker
+
 Docker Compose
