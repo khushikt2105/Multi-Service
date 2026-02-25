@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  consul:
+    image: hashicorp/consul:1.15
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    command: agent -dev -client=0.0.0.0
+    networks:
+      - net
+
+  service-a:
+    build:
+      context: .
+    command: python serviceA.py
+    depends_on:
+      - consul
+    networks:
+      - net
+
+  service-b:
+    build:
+      context: .
+    command: python serviceB.py
+    depends_on:
+      - consul
+    networks:
+      - net
+
+  service-c:
+    build:
+      context: .
+    command: python serviceC.py
+    depends_on:
+      - consul
+    networks:
+      - net
+
+  api-gateway:
+    build:
+      context: .
+    command: python api_gateway.py
+    ports:
+      - "5000:5000"
+    depends_on:
+      - consul
+      - service-a
+      - service-b
+      - service-c
+    networks:
+      - net
+
+networks:
+  net:
+
+
+
+#docker-compose up --build
